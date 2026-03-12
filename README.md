@@ -2,6 +2,8 @@
 
 A fullstack task scheduling web application where users can create scheduled tasks, monitor their execution status in real time, and have tasks automatically executed by a background worker with retry logic.
 
+
+Video link:- <a href="https://www.loom.com/share/7b12f96890b345f1aeb153fb09f122d7">https://www.loom.com/share/7b12f96890b345f1aeb153fb09f122d7</a>
 ---
 
 ## Tech Stack
@@ -413,7 +415,3 @@ make down-v && make up
 ```
 
 ---
-
-## License
-
-MIT
