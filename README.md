@@ -91,7 +91,7 @@ No local Python or Node.js installation required.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/task-scheduler.git
+git clone https://github.com/SumanshuBorkar/Task-scheduler.git
 cd task-scheduler
 ```
 
