@@ -1,0 +1,50 @@
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Django ────────────────────────────────────────────────────────
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+
+# ── Virtual Environment ───────────────────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Environment Variables — NEVER commit these ────────────────────
+.env
+backend/.env
+
+# ── Node / Frontend ───────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ── Testing ───────────────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+
+# ── Docker ────────────────────────────────────────────────────────
+postgres_data/
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ── IDE ───────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml

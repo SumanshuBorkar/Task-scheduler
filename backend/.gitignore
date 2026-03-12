@@ -1,0 +1,47 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+
+# Environment
+.env
+
+# Coverage
+.coverage
+htmlcov/
+
+# Pytest
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+```
+
+---
+
+## Where Each File Lives
+```
+task-scheduler/
+├── docker-compose.yml              ← CREATE THIS
+├── docker/
+│   ├── backend/
+│   │   └── Dockerfile              ← CREATE THIS
+│   ├── frontend/
+│   │   └── Dockerfile              ← CREATE THIS
+│   └── nginx/
+│       └── nginx.conf              ← CREATE THIS
+├── backend/
+│   ├── .env.example                ← CREATE THIS
+│   ├── .env                        ← COPY from .env.example, fill values
+│   └── .gitignore                  ← CREATE THIS
+└── frontend/
+    └── (already exists from Vite)
