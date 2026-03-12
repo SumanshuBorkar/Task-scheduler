@@ -36,6 +36,7 @@ Browser (React SPA)
    │                    Celery Beat (scheduler)
    │
    └── /*  ─────────────► Vite Dev Server :5173
+
 ```
 
 **Request flow for task scheduling:**
@@ -47,6 +48,30 @@ Browser (React SPA)
 6. On failure, exponential backoff retry (60s → 120s → 240s)
 7. After max retries, task is marked `FAILED`
 8. React frontend polls `GET /api/tasks/` every 10 seconds and reflects live status
+
+### Class Diagram :
+
+<p align="center">
+  <img src="https://uml.planttext.com/plantuml/svg/VLJ9Rjim4BqRy3yGxiLkuI2zwb34bULOW2mPMf2Zm51JXR146YILfKN_lLois7AKGWSDtvjzXhoJ2WlLjSrq8W-K7R70BI8DbdAbbA2FdOAGS9RHtu1kBtKUCJdKWdUiydd31VgoMPblEfbEh3ag90ZqPpf1w1kjF5GKuTeUEeqpt8A7CXs0rHQ45jDcW1orZnSkgXv4yoSidw1QE8-on4JHP-tb9-SDO6PX8W0hg4giFBJMKavRi4J3QyhcYrxcdJA7l-TiSomFOzaggffXgXL88kXHKSu6k6wawgHdFMLMTdK8oWLLRuxOdqxEWkXwkcOiNtW5qerMGdXxR62K4g34MqdqJ3GJCWKr24kq-BKq90Kv90Wqe4sKpgoarQ2SJrlP7QjneY_drEOMYuFV9tk1RVIatm62MMgodYyk1darbi3sGhTxR3vsVSUo-KKPDVloaT73rqtKGtrtd3Z4TLu8BieMfCJrrU0xWOrssLvrKQ_f0SIWWLSbHBmUItuiIWFFe6-2jeYCz9zPs1Z0klPYvLoKVH2lm_ZUY9c_3TP55DY0QH779znFTlieo1s-MOKd3NyL-q5a3qFt_UAw057oO7vnakvMaP6suVtMsgTX7le6EvjVjzcvo0hV3xAi3r-aWH7pS1SaHNvftdV2cONn9Z7_XrNQbnAaQPAUBEoZC_i-GyibHxFRcvklCtUrFSHVcBwHzZ2YS5uo3-c7vdD5CqeFwJUarrakVmpk_00yt_TX4CD_NB_Uls7F2t07hB8Fz3y0" alt="Logo" width="100%"/>
+</p
+
+### ER Diagram :
+
+<p align="center">
+  <img src="https://uml.planttext.com/plantuml/svg/fPHVIyCm5CNV2_qEORveOQ3YG4J6gbOTEYUp4_6bnFQwXQLDoH-dEB-xIRDXPbTHf4_jxzxqt7DksnCISwbowdjYHeeISvoZ9vpE9fof8Zjbb76qTHwQo_Ty3mf9v1jgAG5SjD2xxo4K89AX8pGUzy_GyV7jLRThdhRRbfdA0kUWA-x3qUbbEDhUw-pkM0Wv9jGX-vs39Icn47F6CxTj_t09YKXmAicBEVHaEBoEmXiBKWvOGfPWgKdS7qHtSJYuZHyDHKYLMGFzS6UJMCn-FrlY5fml2mAaZwAmDbbdnwh8GAISb9AmmiY87cBRePEGIhWjAvTAJXWtqXmlLaoaKyWKRPmPNY5LpPQaB2yfDF40SP3yBKdrBXZSlucZYsXaKOvV4uC9Y7MaJmKAkiqOQUtvxiBFIGL_IIgn4setVvVPbwXQPjMtq6ZLCoc8c3PAPafgCw6Udyw0SyQJ78J04t0orxkWE3RIaxpceLx-sMgxrkshMq3PvD_3r-K5YC8Bq4rRrvnU9QxwEw35ejrcxzKxpNGjDjSH-PwzTw2Je2cRuirLPaZ39r20TWrCLG-AJF-yFW40" alt="Logo" width="100%"/>
+</p
+
+### Sequence Diagram :
+
+<p align="center">
+  <img src="https://uml.planttext.com/plantuml/svg/dLLHZnet47v7uZ-CqXUYt8aaKbzM8WsmIqfBWBBGF2B7EmSkNdjhUmleTF-zOtlXW5pKgE9XqVgRcM--yJVxqJfcN5tATilkXAgOOILyPNotCRfMnL1BRU2dKT__BY4M_wvHSUmRe_VBhU0xXTR2-tQhtMBSKT3Aecct2Eq45nLJ3buja8vWDNu5pDBZvdIw4UeGZkP67uutf-bVJ6qqzESncfutWBcsRcCm_sCI0EdWc-A5iE4e_Biv7Q94SuG1CXSm_i_Ba2_QxD04KFphM-xre5-xBIg2CoUqWbwltV8ImFq7QZM1YQRse5FJAyLAl8EAMRlNfdXDkB57XQuJcC_o9NHP9RgCCdQbZ-ksM-7KmwZp14RQx9afmFWnM69AR_rXEaZWJoP5mHm2DrXuHanIj-a0xa_HWPT1JjMRo8RaRr-Mm3Ztatn3W0U3TWjExr3P4qiFosc-sBm7wgh4KfjZT-jSDLFo25phdS16bw51JoRdMongYGKicTrz8yz8I0dEdpneKr9rMtyjXRkiEgkSA8KbXQ6kGeCTkzNx6ELlJJPDnzDFtzVJ0ssNSjDm3PKE3NnFsOxn5IHLT43K-IuC3EthizO1VXQRfBkQmdYQPujb9FT89dErJKuKdwx74GIv6iU7U4SJQEuSgofvN3DxLBo3ZlNiISmrSqGeW9_p-PfhKLpHMStJ_ZABTF9i2JmaNbz36w7VlttNJAs0nn117RAdPfw3ytA0x82yFjzsRvaBwdDD4wLXGb5Zg6ilYNfm0XWIOA11jyXQji7dHD5U2QJ2LipnRSZIRiNNBpLsrdcncav9vxjJ0QzJ0ahldox3J_bZ6v4aUBznsc7IGLu7AxHR03zGSpZxF9zaoooze_jVLXAlozxckBWVQpph-AXhHz587biDXrcUKoHAYp1YGjPaEczBPmHQUfPCAA4s_y7FuuzhJWFpNDwyk-7IJ6k1zxH9Q59xuROaMwLLN1tXOw0V7XeUdzdXp00F76d353yeqAW_dcJf_v321wuM6KsJFZOqhz9kl2ogQ6uasTrVDf8YhfLBzt_AhitVmN-yeNxsFdxH-5UkoRD9DepCQDl_cYqoy0kS70Cz-EK55qlQJr72kA8AYDsZlRNOMvZz7jrbWHd3Za-Nksv1sq1n8PjvwEVLv_EHHpvI-_JL_XS0" alt="Logo" width="100%"/>
+</p
+
+### Object Diagram :
+
+<p align="center">
+  <img src="https://uml.planttext.com/plantuml/svg/XPDXQzim48Q_-rU8xBCtnHw31JOIadG910PfyzaezZNLB5b6EZS9O_zzTtRSk6j6iS6wHoVT-vwbQK3biR4c2gMkQkML5NkLbmVlcggOE-Ey-70tuoUAtFuNv2X6okWSn4Ji0lYHK45qu7SaX2x4Dp5gWe-b78y8D9HJAGkCspI6O9KsBsGA9sLh0nzpPtbMXqpbg9zv3Ve6eZ_NqXwihWhm3ogKf80_hGAamNYW04FPAq2DfYr_3rKXZW2bEGiFjVF8qzG0R0BDtyzNoyLkirmGhBrsNkEPy6hzOyLf-HCKZO4YKyYR9JBv4iiq7aiXlqwaf9Ttyu3-dENKFCwIHAmwPKmrS96KI0u6A8abPvtQZiHgdyVZ91qD3VFFQEfRTfCtTfDNTXSArLu54DqMhxpUpTPlZCwtwuVrVBPvnspoFxFf3RC38t22V7pniAHnWzfLhPbkvcg6u_xdkGRfLC15ycwxvDFZlVEPXH3KeNKwTrL5DMW_Sc-1rl3Iel6AMMPRBL9-JeWUdI_1N_hU1TCd5p3cUWEvnXrwjHjtQ7Msw2gJmbxbGCiC4MoD8lsKYaSwvL1Cn6rz1fw1By5ok_svvTBTBOhZxvVJF17kM8L_SDBZBc3STzQeW6tGjdQGSF5oW0ge9L0mYAPq6_ZU_mK0" alt="Logo" width="100%"/>
+</p
 
 ---
 
