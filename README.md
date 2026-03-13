@@ -4,6 +4,8 @@ A fullstack task scheduling web application where users can create scheduled tas
 
 
 Video link:- <a href="https://www.loom.com/share/7b12f96890b345f1aeb153fb09f122d7">https://www.loom.com/share/7b12f96890b345f1aeb153fb09f122d7</a>
+
+Claude link:- <a href="https://claude.ai/share/731d1dcb-466c-4a8e-8ddd-99bc3ab8dce9">https://claude.ai/share/731d1dcb-466c-4a8e-8ddd-99bc3ab8dce9</a>
 ---
 
 ## Tech Stack
@@ -293,20 +295,19 @@ GET /api/tasks/?status=FAILED&priority=CRITICAL
 ## Implementation Notes
 
 ### Why a Custom User Model Before First Migration
-Django's documentation explicitly recommends creating a custom `AUTH_USER_MODEL` at project start. Changing it after migrations exist requires wiping the database. Our `authentication.User` extends `AbstractUser` with a unique email field used as the login identifier.
+The documentation for Django recommends that a custom `AUTH_USER_MODEL` should be created at the start of a project. Altering an `AUTH_USER_MODEL` after migrations have been created requires the database to be wiped. The `authentication.User` model is an extension of `AbstractUser` and has a unique email address that is used for logging
 
 ### Why Services and Selectors Pattern
-Views are kept intentionally thin — they only handle HTTP concerns (parse request, return response). All business logic lives in `services.py` and all database reads live in `selectors.py`. This makes logic reusable, independently testable, and prevents fat views.
+The views are designed to be thin. This is because they should only handle HTTP-related tasks such as parsing the request and returning the response. The logic is contained in `services.py` for all the views. The database read logic is contained in `selectors.py`. This makes the logic reusable as well as independently testable.
 
 ### Why Celery Beat + Polling Instead of ETA-Based Scheduling
-Using `apply_async(eta=scheduled_at)` stores the entire task in Redis until execution time. For thousands of tasks this creates memory pressure and makes tasks invisible to the scheduler if Redis restarts. Our approach stores tasks in PostgreSQL (durable) and Beat polls every 60 seconds — tasks are only in Redis for their brief execution window.
+Using `apply_async(eta=scheduled_at)` stores the entire task in Redis until execution time. This creates memory pressure for thousands of tasks. Additionally, tasks are no longer visible to the scheduler in the event of a Redis restart. Our approach stores tasks in PostgreSQL (durable), and Beat polls every 60 seconds. This way, tasks are only in Redis for a brief window.
 
 ### Why Exponential Backoff for Retries
-Retry 1: 60s, Retry 2: 120s, Retry 3: 240s. This prevents a failed downstream service from being hammered with immediate retries. Each retry doubles the wait time, giving dependent services time to recover.
+Retry 1: 60s, Retry 2: 120s, Retry 3: 240s. This ensures a failed downstream service is not retried immediately. Instead, the retries are spaced out to give the dependent service a chance to come back online.
 
 ### JWT Token Strategy
-Access tokens live 60 minutes (in memory via React state + localStorage). Refresh tokens live 7 days and are blacklisted on logout via `rest_framework_simplejwt.token_blacklist`. The Axios interceptor automatically refreshes the access token on 401 responses, making token expiry invisible to the user.
-
+Access tokens have a 60-minute expiration time (memory via React State + LocalStorage). Refresh tokens have a 7-day expiration time and are blacklisted on logout via `rest_framework_simplejwt.token_blacklist`. The Axios interceptor refreshes the access token for 401 responses, making expiration transparent to the user.
 ---
 
 ## Potential Improvements
@@ -352,13 +353,14 @@ This project involved several concepts encountered and implemented for the first
 
 **Django architecture patterns** — the services/selectors separation was new. Keeping views as pure HTTP handlers and pushing all logic into dedicated service functions makes the codebase dramatically easier to test and reason about.
 
-**Celery's execution model** — understanding the difference between the broker (Redis — transient job queue) and the result backend (PostgreSQL — durable results) clarified why each component exists. Celery Beat as a separate process that only dispatches — never executes — was an important architectural insight.
-
-**JWT authentication flow** — implementing the full token lifecycle (issue, refresh, blacklist on logout) gave a clear picture of stateless authentication. The discovery that `AUTH_USER_MODEL` must be set before the first migration was a hard-learned lesson.
+**Celery's execution model** — understanding the difference between the broker (Redis — transient job queue) and the result backend (PostgreSQL — durable results) clarified why each component exists. Celery Beat as a separate process that only dispatches — never executes — was an important architectural learning.
 
 **Docker networking** — service names like `db` and `redis` as hostnames only resolve inside the Docker network. This caused early confusion when running `manage.py` locally and encountering "host not found" errors — now fully understood.
 
 **Optimistic UI updates** — updating local React state immediately before the API call resolves makes the UI feel instant. The pattern of reverting on API failure by re-fetching server state is simple and robust.
+
+I've also added the complete session with Claude code that helped me build this application from scratch. 
+
 
 ---
 
